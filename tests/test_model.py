@@ -1,6 +1,10 @@
 import unittest
 from src import python_controller, model
 
+from src import class_node as c_node
+from src import attribute_node as a_node
+from src import function_node as f_node
+
 
 class ModelTestCase(unittest.TestCase):
     """
@@ -97,7 +101,7 @@ class ModelTestCase(unittest.TestCase):
         Checks if class name is equal to one created
         Author: Braeden
         """
-        md = model.ClassNode("Class One", [])
+        md = c_node.ClassNode("Class One", [])
 
         self.assertTrue(md.name == "Class One")
 
@@ -107,7 +111,7 @@ class ModelTestCase(unittest.TestCase):
         tests if correct as created are stored
         Author: Braeden
         """
-        md = model.ClassNode("Class One", [])
+        md = c_node.ClassNode("Class One", [])
         md.add_attribute("Attribute One", "+")
         md.add_attribute("Attribute Two", "+")
 
@@ -119,7 +123,7 @@ class ModelTestCase(unittest.TestCase):
         tests if correct as created are stored
         Author: Braeden
         """
-        md = model.ClassNode("Class One", [])
+        md = c_node.ClassNode("Class One", [])
         md.add_function("Function One", [], "+")
         md.add_function("Function Two", [], "+")
 
@@ -131,7 +135,7 @@ class ModelTestCase(unittest.TestCase):
         tests if correct as created are stored
         Author: Braeden
         """
-        md = model.ClassNode("Class One", [])
+        md = c_node.ClassNode("Class One", [])
         md.add_super_class(())
         md.add_super_class(())
 
@@ -142,7 +146,7 @@ class ModelTestCase(unittest.TestCase):
         Checks if function name is equal to one created
         Author: Braeden
         """
-        md = model.FunctionNode("Function One", [], "+")
+        md = f_node.FunctionNode("Function One", [], "+")
 
         self.assertTrue(md.name == "Function One")
 
@@ -151,7 +155,7 @@ class ModelTestCase(unittest.TestCase):
         Checks if attribute name is equal to one created
         Author: Braeden
         """
-        md = model.AttributeNode("Attribute One", "+")
+        md = a_node.AttributeNode("Attribute One", "+")
 
         self.assertTrue(md.name == "Attribute One")
 
