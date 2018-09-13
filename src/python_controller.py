@@ -1,7 +1,6 @@
 from tkinter import filedialog, Tk
 
-import model
-import uml_output as uml_out
+from src import model, uml_output as uml_out
 from cmd import Cmd
 from subprocess import call
 import argparse

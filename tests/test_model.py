@@ -1,6 +1,6 @@
 import unittest
-import model
-import python_controller
+from src import python_controller, model
+
 
 class ModelTestCase(unittest.TestCase):
     """
