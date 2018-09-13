@@ -1,83 +1,11 @@
 import inspect
 import sys
 import os
+from src import class_node as c_node
 
 ##########################################
 # Initial helper classes to store information while the parser
 # parses the information
-
-
-class ClassNode:
-    """
-    Class object containing attributes and functions
-    Author: Braeden
-    Contributor: Peter
-
-    >>> ClassNode("Class One", []).name
-    'Class One'
-    >>> class_one = ClassNode("Class One")
-    >>> class_one.add_attribute("Attribute One", "+")
-    >>> class_one.add_attribute("Attribute Two", "+")
-    >>> len(class_one.attributes)
-    2
-    """
-
-    def __init__(self, name, super_classes=None):
-        self.name = name
-        self.attributes = []
-        self.functions = []
-        if super_classes is None:
-            self.super_classes = []
-        else:
-            self.super_classes = super_classes
-
-    def add_attribute(self, attribute_name, visibility):
-        self.attributes.append(AttributeNode(attribute_name, visibility))
-
-    def add_function(self, function_name, list_of_parameters, visibility):
-        self.functions.append(FunctionNode(function_name,
-                                           list_of_parameters, visibility))
-
-    def add_super_class(self, super_class):
-        self.super_classes.append(super_class)
-
-
-class AttributeNode:
-    """
-    Attribute object containing attribute name
-    Author: Braeden
-
-    >>> AttributeNode("Attribute One", "+").name
-    'Attribute One'
-    """
-
-    def __init__(self, name, visibility):
-        self.name = name
-        self.visibility = visibility
-
-
-class FunctionNode:
-    """
-    Function object containing function name and parameters
-    Author: Braeden
-
-    >>> FunctionNode("Function One", [], "+").get_name()
-    'Function One'
-    >>> len(FunctionNode("Function One",
-    ... ["Param One", "Param Two"], "+").parameters)
-    2
-    """
-
-    def __init__(self, name, list_of_parameters, visibility):
-        self.name = name
-        self.parameters = list_of_parameters
-        self.visibility = visibility
-
-    def get_name(self):
-        return self.name
-
-    def get_parameters(self):
-        return ",".join(self.parameters)
 
 
 class FileProcessor:
@@ -161,7 +89,7 @@ class FileProcessor:
                     super_classes_names.append(class_object.__name__)
 
         # create class node and append to current module
-        class_node = ClassNode(name, super_classes)
+        class_node = c_node.ClassNode(name, super_classes)
         self.modules[module_name].append(class_node)
 
         # create list of functions in class
@@ -186,9 +114,6 @@ class FileProcessor:
                         class_node,
                         self.get_visibility_of_string(
                             something.__name__))
-        # Edited By Jake
-        statistics = StatisticsCreator("statistics")
-        statistics.insert_class(class_node)
 
     @staticmethod
     def process_function(some_function, class_node, visibility):
