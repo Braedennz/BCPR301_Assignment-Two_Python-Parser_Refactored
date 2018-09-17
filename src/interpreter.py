@@ -1,63 +1,56 @@
-from tkinter import filedialog, Tk
-
 from src import controller
 from cmd import Cmd
-from subprocess import call
 import argparse
+
+
+def handle_message(message_type, message):
+    print("{0}: {1}".format(message_type, message))
+
+
+def register_arguments():
+    # Create your commands in here
+    parser = argparse.ArgumentParser()
+    # Created by Braeden
+    parser.add_argument(
+        "-f",
+        "--file",
+        nargs="+",
+        help="Multiple file input for parse")
+    # Created By Jake Reddock
+    parser.add_argument(
+        "-s",
+        "--statistics",
+        action='store_true',
+        help="Print Statistics for classes uploaded")
+    # Created By Michael Huang
+    parser.add_argument(
+        "-o",
+        "--output",
+        help="Setting name of the output location")
+    return parser.parse_args()
 
 
 class Interpreter(Cmd):
     def __init__(self):
         Cmd.__init__(self)
         # Command line argument variables
-        self.files = None
         self.statistics = None
         self.extracted_modules = None
-        self.output = None
-        self.args = self.register_arguments()
-        self.parse_arguments()
+        self.args = register_arguments()
         self.prompt = '> '
+        self.controller = controller.Controller()
+        self.parse_arguments()
 
-    # Created By Jake
     def run_console(self):
         self.cmdloop('Starting prompt...\n'
                      'Type "help" for commands')
 
-    # Created by Jake
-    def register_arguments(self):
-        # Create your commands in here
-        parser = argparse.ArgumentParser()
-        # Created by Braeden
-        parser.add_argument(
-            "-f",
-            "--file",
-            nargs="+",
-            help="Multiple file input for parse")
-        # Created By Jake Reddock
-        parser.add_argument(
-            "-s",
-            "--statistics",
-            action='store_true',
-            help="Print Statistics for classes uploaded")
-        # Created By Michael Huang
-        parser.add_argument(
-            "-o",
-            "--output",
-            help="Setting name of the output location")
-        return parser.parse_args()
-
-    # Created By Jake Reddock
     def parse_arguments(self):
-        # Create Logic for your arguments here
-        # Created by Braeden
-        if self.args.file is not None:
-            self.files = self.args.file
-            print("Files selected: ")
-            print(*self.files, sep="\n")
-        # Created by Michael Huang
-        if self.args.output is not None:
-            self.output = self.args.output
-            print("Now setting names of output files")
+        if self.controller.set_files_by_arguments(self.args.file):
+            handle_message("Success", "files were set by arguments")
+
+        if self.controller.set_output_name_by_arguments(self.args.output):
+            handle_message("Success", "file output name is set by arguments")
 
     def do_change_python_files(self, args):
         """
@@ -65,11 +58,21 @@ class Interpreter(Cmd):
         Author: Braeden
         Syntax: change_python_files <filenames.py>
         """
-        user_args = args.split()
-        if len(user_args) > 0:
-            self.files = [args]
+        if self.controller.cl_set_python_files(args):
+            handle_message("Success", "files have been set")
         else:
-            print("Syntax Error: change_python_files <filenames.py>")
+            handle_message("Error", "change_python_files <filenames.py>")
+
+    def do_set_input_file(self, args):
+        """
+        Sets the input file that will be converted into a UML diagram.
+        Author: Jake Reddock
+        Syntax: set_input_file [file_name]
+        """
+        if self.controller.ui_set_python_files(args):
+            handle_message("Success", "files have been set")
+        else:
+            handle_message("Error", "no files were selected")
 
     # Edited By Jake
     def do_output_to_dot(self, args):
@@ -91,32 +94,10 @@ class Interpreter(Cmd):
             if "-m" in user_options:
                 hide_methods = True
 
-        self.run_parser(self, hide_attributes, hide_methods)
-
-    def do_set_input_file(self, args):
-        """
-        Sets the input file that will be converted into a UML diagram.
-        Author: Jake Reddock
-        Syntax: set_input_file [file_name]
-        """
-        if len(args) == 0:
-            root = Tk()
-            self.files = filedialog.askopenfilenames(
-                initialdir="C:/",
-                title="Select Input File",
-                filetypes=(
-                    ("Python Files",
-                     "*.py"),
-                    ("all files",
-                     "*.*")))
-            root.withdraw()
+        if self.controller.run_parser(hide_attributes, hide_methods):
+            handle_message("Success", "dot file has been created")
         else:
-            self.files = [args]
-        if self.files == "":
-            print("No input file selected.")
-        else:
-            print("Input file selected:")
-            print(*self.files, sep="\n")
+            handle_message("Error", "error handling files, please check input")
 
     # Created by Michael Huang
     def do_output_to_file(self, args):
@@ -127,50 +108,18 @@ class Interpreter(Cmd):
                 output_to_file [path]
         """
 
-        from shutil import copyfile
-        if len(args) == 0:
-
-            root = Tk()
-            root.filename = filedialog.askdirectory()
-            print(root.filename)
-            root.withdraw()
-
-            copyfile('tmp/class.png', root.filename + '/class.png')
+        if self.controller.copy_file_to_destination(args):
+            handle_message("Success", "copied file to the destination")
         else:
-            try:
-                copyfile('tmp/class.png', args + '/class.png')
-                print('The output to the file destination was successful.')
-            except FileNotFoundError as f:
-                print('Failed to find a file: %s' % f)
-                print('Please specify a valid file path.')
-            except:
-                print('Unexpected error has occurred.')
+            handle_message("Error", "copy to destination has failed")
 
-    @staticmethod
-    def do_output_to_png(args):
+    def do_output_to_png(self, args):
         """
         Converts dot file into PNG
         Author: Braeden
         """
-        return call(['dot', '-Tpng', 'tmp/class.dot', '-o', 'tmp/class.png'])
 
-    # Edited by Jake
-    @staticmethod
-    def run_parser(self, hide_attributes, hide_methods):
-        if len(self.files) > 0:
-            handler = controller.Controller(hide_attributes, hide_methods)
-            handler.parse_files(self.files)
-
-            self.extracted_modules = handler.interpreter.get_modules()
-
-            handler.create_class_diagram()
+        if self.controller.convert_dot_to_png():
+            handle_message("Success", "created png file in specified destination")
         else:
-            print("Error: No files were set, use command change_python_files")
-
-    def do_quit(self, other):
-        '''
-        Quits programme.
-        Author: Peter
-        '''
-        print("Goodbye ......")
-        return True
+            handle_message("Error", "failed to create png file in specified destination")
