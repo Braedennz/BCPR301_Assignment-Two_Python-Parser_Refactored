@@ -1,13 +1,12 @@
 from tkinter import filedialog, Tk
 
-from src import uml_output as uml_out
-from src import python_handler
+from src import controller
 from cmd import Cmd
 from subprocess import call
 import argparse
 
 
-class Controller(Cmd):
+class Interpreter(Cmd):
     def __init__(self):
         Cmd.__init__(self)
         # Command line argument variables
@@ -159,7 +158,7 @@ class Controller(Cmd):
     @staticmethod
     def run_parser(self, hide_attributes, hide_methods):
         if len(self.files) > 0:
-            handler = python_handler.PythonHandler(hide_attributes, hide_methods)
+            handler = controller.Controller(hide_attributes, hide_methods)
             handler.parse_files(self.files)
 
             self.extracted_modules = handler.interpreter.get_modules()

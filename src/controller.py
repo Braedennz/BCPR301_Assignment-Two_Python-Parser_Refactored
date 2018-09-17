@@ -3,7 +3,7 @@ from src.processors import code_processor
 from src import uml_output as uml_out
 
 
-class PythonHandler:
+class Controller:
     def __init__(self, hide_attributes, hide_methods):
         self.hide_attributes = hide_attributes
         self.hide_methods = hide_methods

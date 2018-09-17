@@ -16,7 +16,6 @@ class CodeProcessor:
         # Process the found class, and store in global modules
         # Find any functions with-in the class
         name = some_class.__name__
-
         module_name = some_class.__module__
 
         # create module for current file in global modules list
