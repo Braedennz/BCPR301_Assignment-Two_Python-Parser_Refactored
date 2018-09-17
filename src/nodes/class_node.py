@@ -1,5 +1,4 @@
-from src import attribute_node as a_node
-from src import function_node as f_node
+from src.nodes import attribute_node as a_node, function_node as f_node
 
 
 class ClassNode:

@@ -1,6 +1,7 @@
 from tkinter import filedialog, Tk
 
-from src import model, uml_output as uml_out
+from src import uml_output as uml_out
+from src import python_handler
 from cmd import Cmd
 from subprocess import call
 import argparse
@@ -158,14 +159,12 @@ class Controller(Cmd):
     @staticmethod
     def run_parser(self, hide_attributes, hide_methods):
         if len(self.files) > 0:
-            # Initiate processor
-            processor = model.FileProcessor()
-            processor.process_files(self.files)
+            handler = python_handler.PythonHandler(hide_attributes, hide_methods)
+            handler.parse_files(self.files)
 
-            self.extracted_modules = processor.get_modules()
+            self.extracted_modules = handler.interpreter.get_modules()
 
-            new_uml = uml_out.MakeUML(hide_attributes, hide_methods)
-            return new_uml.create_class_diagram(self.extracted_modules)
+            handler.create_class_diagram()
         else:
             print("Error: No files were set, use command change_python_files")
 
