@@ -22,35 +22,15 @@ class CodeProcessor:
         if module_name not in self.modules:
             self.modules[module_name] = list()
 
+        # create list of super classes for current class
         super_classes = self.fetch_super_classes(some_class)
 
-        # create class node and append to current module
+        # create class object and append to current module
         class_node = c_node.ClassNode(name, super_classes)
         self.modules[module_name].append(class_node)
 
-        #
-        # # create list of functions in class
-        # for (name, something) in inspect.getmembers(some_class):
-        #     if inspect.ismethod(something) or inspect.isfunction(something):
-        #         # get the class from the functions element
-        #         function_class = something.__qualname__.split('.')[0]
-        #
-        #         # only add function if the current class is the same as the
-        #         # selected functions class
-        #         if some_class.__name__ == function_class:
-        #             # create list of attributes in class with constructor
-        #             if something.__name__ == "__init__":
-        #                 attributes = something.__code__.co_names
-        #
-        #                 for attribute in attributes:
-        #                     self.process_attribute(
-        #                         attribute, class_node, self.get_visibility_of_string(attribute))
-        #
-        #             self.process_function(
-        #                 something,
-        #                 class_node,
-        #                 self.get_visibility_of_string(
-        #                     something.__name__))
+        # create list of functions & attributes in class
+        self.fetch_attributes_and_functions(class_node, some_class)
 
     @staticmethod
     def fetch_super_classes(class_object):
@@ -63,9 +43,28 @@ class CodeProcessor:
 
         return super_classes
 
-    @staticmethod
-    def fetch_attributes_and_functions(class_node, something):
-        pass
+    def fetch_attributes_and_functions(self, class_node, some_class):
+        for (name, something) in inspect.getmembers(some_class):
+            if inspect.ismethod(something) or inspect.isfunction(something):
+                # get the class from the functions element
+                function_class = something.__qualname__.split('.')[0]
+
+                # only add function if the current class is the same as the
+                # selected functions class
+                if some_class.__name__ == function_class:
+                    # create list of attributes in class with constructor
+                    if something.__name__ == "__init__":
+                        attributes = something.__code__.co_names
+
+                        for attribute in attributes:
+                            self.process_attribute(
+                                attribute, class_node, self.get_visibility_of_string(attribute))
+
+                    self.process_function(
+                        something,
+                        class_node,
+                        self.get_visibility_of_string(
+                            something.__name__))
 
     @staticmethod
     def process_function(some_function, class_node, visibility):
