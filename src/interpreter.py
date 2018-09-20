@@ -74,7 +74,6 @@ class Interpreter(Cmd):
         else:
             handle_message("Error", "no files were selected")
 
-    # Edited By Jake
     def do_output_to_dot(self, args):
         """
         Parse and output the file into a UML diagram
@@ -99,7 +98,6 @@ class Interpreter(Cmd):
         else:
             handle_message("Error", "error handling files, please check input")
 
-    # Created by Michael Huang
     def do_output_to_file(self, args):
         """
         Sets the output of the class diagram to a file location.
@@ -113,7 +111,7 @@ class Interpreter(Cmd):
         else:
             handle_message("Error", "copy to destination has failed")
 
-    def do_output_to_png(self, args):
+    def do_output_to_png(self):
         """
         Converts dot file into PNG
         Author: Braeden

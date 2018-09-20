@@ -22,43 +22,50 @@ class CodeProcessor:
         if module_name not in self.modules:
             self.modules[module_name] = list()
 
-        super_classes = []
-        super_classes_names = []
-
-        # Only creates class_nodes that have unique name, stops duplicate class_nodes
-        # Strips any random objects, only leaves proper class names
-        for class_object in some_class.__bases__:
-            if class_object.__name__ != 'object':
-                if class_object.__name__ not in super_classes_names:
-                    super_classes.append(class_object)
-                    super_classes_names.append(class_object.__name__)
+        super_classes = self.fetch_super_classes(some_class)
 
         # create class node and append to current module
         class_node = c_node.ClassNode(name, super_classes)
         self.modules[module_name].append(class_node)
 
-        # create list of functions in class
-        for (name, something) in inspect.getmembers(some_class):
-            if inspect.ismethod(something) or inspect.isfunction(something):
-                # get the class from the functions element
-                function_class = something.__qualname__.split('.')[0]
+        #
+        # # create list of functions in class
+        # for (name, something) in inspect.getmembers(some_class):
+        #     if inspect.ismethod(something) or inspect.isfunction(something):
+        #         # get the class from the functions element
+        #         function_class = something.__qualname__.split('.')[0]
+        #
+        #         # only add function if the current class is the same as the
+        #         # selected functions class
+        #         if some_class.__name__ == function_class:
+        #             # create list of attributes in class with constructor
+        #             if something.__name__ == "__init__":
+        #                 attributes = something.__code__.co_names
+        #
+        #                 for attribute in attributes:
+        #                     self.process_attribute(
+        #                         attribute, class_node, self.get_visibility_of_string(attribute))
+        #
+        #             self.process_function(
+        #                 something,
+        #                 class_node,
+        #                 self.get_visibility_of_string(
+        #                     something.__name__))
 
-                # only add function if the current class is the same as the
-                # selected functions class
-                if some_class.__name__ == function_class:
-                    # create list of attributes in class with constructor
-                    if something.__name__ == "__init__":
-                        attributes = something.__code__.co_names
+    @staticmethod
+    def fetch_super_classes(class_object):
+        super_classes = list()
 
-                        for attribute in attributes:
-                            self.process_attribute(
-                                attribute, class_node, self.get_visibility_of_string(attribute))
+        for class_item in class_object.__bases__:
+            if class_item.__name__ != 'object':
+                if len(list(filter(lambda x: x.__name__ != class_item.__name__, super_classes))) == 0:
+                    super_classes.append(class_object)
 
-                    self.process_function(
-                        something,
-                        class_node,
-                        self.get_visibility_of_string(
-                            something.__name__))
+        return super_classes
+
+    @staticmethod
+    def fetch_attributes_and_functions(class_node, something):
+        pass
 
     @staticmethod
     def process_function(some_function, class_node, visibility):
