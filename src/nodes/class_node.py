@@ -1,23 +1,10 @@
 from src.nodes import attribute_node as a_node, function_node as f_node
+from src.nodes import node as i_node
 
 
-class ClassNode:
-    """
-    Class object containing attributes and functions
-    Author: Braeden
-    Contributor: Peter
-
-    >>> ClassNode("Class One", []).name
-    'Class One'
-    >>> class_one = ClassNode("Class One")
-    >>> class_one.add_attribute("Attribute One", "+")
-    >>> class_one.add_attribute("Attribute Two", "+")
-    >>> len(class_one.attributes)
-    2
-    """
-
+class ClassNode(i_node.Node):
     def __init__(self, name, super_classes=None):
-        self.name = name
+        i_node.Node.__init__(self, name)
         self.attributes = []
         self.functions = []
         if super_classes is None:

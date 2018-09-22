@@ -1,12 +1,7 @@
-class AttributeNode:
-    """
-    Attribute object containing attribute name
-    Author: Braeden
+from src.nodes import node as i_node
 
-    >>> AttributeNode("Attribute One", "+").name
-    'Attribute One'
-    """
 
+class AttributeNode(i_node.Node):
     def __init__(self, name, visibility):
-        self.name = name
+        i_node.Node.__init__(self, name)
         self.visibility = visibility

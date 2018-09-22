@@ -111,13 +111,13 @@ class Interpreter(Cmd):
         else:
             handle_message("Error", "copy to destination has failed")
 
-    def do_output_to_png(self):
+    def do_output_to_png(self, args):
         """
         Converts dot file into PNG
         Author: Braeden
         """
 
-        if self.controller.convert_dot_to_png():
+        if not self.controller.convert_dot_to_png():
             handle_message("Success", "created png file in specified destination")
         else:
             handle_message("Error", "failed to create png file in specified destination")

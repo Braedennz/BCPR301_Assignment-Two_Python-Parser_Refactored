@@ -5,6 +5,7 @@ from src import uml_output as uml_out
 from tkinter import filedialog, Tk
 from shutil import copyfile
 from subprocess import call
+import os
 
 
 class Controller:
@@ -78,6 +79,7 @@ class Controller:
 
     @staticmethod
     def convert_dot_to_png():
+        os.chdir(os.getcwd() + '/src')
         return call(['dot', '-Tpng', 'tmp/class.dot', '-o', 'tmp/class.png'])
 
     def run_parser(self, hide_attributes, hide_methods):
