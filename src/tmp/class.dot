@@ -25,6 +25,6 @@ label = "{Sunflower||+ drop_seed(self)\l}"
                     edge [
                         arrowhead = "empty"
                     ]
-                Orchid -> Orchid
-Sunflower -> Sunflower
+                Orchid -> Plant
+Sunflower -> Plant
 }
