@@ -118,6 +118,9 @@ class Interpreter(Cmd):
         """
 
         if not self.controller.convert_dot_to_png():
-            handle_message("Success", "created png file in specified destination")
+            handle_message(
+                "Success",
+                "created png file in specified destination")
         else:
-            handle_message("Error", "failed to create png file in specified destination")
+            handle_message(
+                "Error", "failed to create png file in specified destination")

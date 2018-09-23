@@ -38,7 +38,11 @@ class CodeProcessor:
 
         for class_item in class_object.__bases__:
             if class_item.__name__ != 'object':
-                if len(list(filter(lambda x: x.__name__ != class_item.__name__, super_classes))) == 0:
+                if len(
+                    list(
+                        filter(
+                            lambda x: x.__name__ != class_item.__name__,
+                            super_classes))) == 0:
                     super_classes.append(class_item)
 
         return super_classes

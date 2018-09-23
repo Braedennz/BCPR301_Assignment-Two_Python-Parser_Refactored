@@ -72,7 +72,7 @@ class Controller:
             print('Failed to find a file: %s' % f)
             print('Please specify a valid file path.')
             return False
-        except:
+        except BaseException:
             print('Unexpected error has occurred.')
             return False
 

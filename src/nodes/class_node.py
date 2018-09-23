@@ -13,10 +13,17 @@ class ClassNode(i_node.Node):
             self.super_classes = super_classes
 
     def add_attribute(self, attribute_name, visibility):
-        self.attributes.append(a_node.AttributeNode(attribute_name, visibility))
+        self.attributes.append(
+            a_node.AttributeNode(
+                attribute_name,
+                visibility))
 
     def add_function(self, function_name, list_of_parameters, visibility):
-        self.functions.append(f_node.FunctionNode(function_name, list_of_parameters, visibility))
+        self.functions.append(
+            f_node.FunctionNode(
+                function_name,
+                list_of_parameters,
+                visibility))
 
     def add_super_class(self, super_class):
         self.super_classes.append(super_class)

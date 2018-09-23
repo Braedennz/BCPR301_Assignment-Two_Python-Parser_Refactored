@@ -46,7 +46,7 @@ class FileProcessor:
         except OSError:
             print("The provided python file contains invalid syntax, "
                   "please fix the provided code before running")
-        except:
+        except BaseException:
             print("Query Failed: An unexpected exception")
 
     def get_modules(self):

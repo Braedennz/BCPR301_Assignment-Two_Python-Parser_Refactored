@@ -6,6 +6,7 @@ import inspect
 from src.processors import code_processor, file_processor
 from src.nodes import attribute_node, class_node, function_node
 
+
 class RefactoredTestCase(unittest.TestCase):
     """
     Tests for bad smell #1 : Large Class
@@ -28,7 +29,8 @@ class RefactoredTestCase(unittest.TestCase):
         """
         ctrl = controller.Controller()
 
-        files_set = ctrl.set_files_by_arguments(self.array_multiple_file_upload)
+        files_set = ctrl.set_files_by_arguments(
+            self.array_multiple_file_upload)
 
         self.assertTrue(files_set and
                         ctrl.files == self.array_multiple_file_upload)
@@ -42,7 +44,8 @@ class RefactoredTestCase(unittest.TestCase):
         inter = interpreter.Interpreter()
         inter.do_change_python_files(self.string_multiple_file_upload)
 
-        self.assertTrue(inter.controller.files == self.array_multiple_file_upload)
+        self.assertTrue(inter.controller.files ==
+                        self.array_multiple_file_upload)
 
     def test_interpret_output_to_dot(self):
         """
@@ -51,7 +54,8 @@ class RefactoredTestCase(unittest.TestCase):
         Author: Braeden
         """
         inter = interpreter.Interpreter()
-        inter.controller.set_files_by_arguments([os.getcwd() + "\\tmp\\plants.py"])
+        inter.controller.set_files_by_arguments(
+            [os.getcwd() + "\\tmp\\plants.py"])
         inter.do_output_to_dot("")
 
         file_exists = os.path.isfile(os.getcwd() + "\\src\\tmp\\class.dot")
@@ -101,7 +105,8 @@ class RefactoredTestCase(unittest.TestCase):
         Author: Braeden
         """
         ctrl = controller.Controller()
-        ctrl.set_files_by_arguments([os.getcwd() + "\\tmp\\plants.py", os.getcwd() + "\\src\\controller.py"])
+        ctrl.set_files_by_arguments(
+            [os.getcwd() + "\\tmp\\plants.py", os.getcwd() + "\\src\\controller.py"])
 
         parsed = ctrl.run_parser(False, False)
 
@@ -125,7 +130,7 @@ class RefactoredTestCase(unittest.TestCase):
 
     """
     Tests for bad smell #3 : -
-    
+
     """
 
     def test_create_function_node(self):
