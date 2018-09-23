@@ -4,7 +4,7 @@ from src import interpreter
 import os
 import inspect
 from src.processors import code_processor, file_processor
-
+from src.nodes import attribute_node, class_node, function_node
 
 class RefactoredTestCase(unittest.TestCase):
     """
@@ -79,7 +79,7 @@ class RefactoredTestCase(unittest.TestCase):
 
     def test_run_parser_single(self):
         """
-        Issue Three - Long Method - Test One
+        Issue Two - Long Method - Test One
         Tests if can run parser using new re-structured method
         Uses run_parser to call new structure in code_processor class
         using single file
@@ -94,7 +94,7 @@ class RefactoredTestCase(unittest.TestCase):
 
     def test_run_parser_multiple(self):
         """
-        Issue Three - Long Method - Test Two
+        Issue Two - Long Method - Test Two
         Tests if can run parser using new re-structured method
         Uses run_parser to call new structure in code_processor class
         using multiple files
@@ -109,7 +109,7 @@ class RefactoredTestCase(unittest.TestCase):
 
     def test_parser_super_classes(self):
         """
-        Issue Three - Long Method - Test Three
+        Issue Two - Long Method - Test Three
         Tests if can get the amount of super classes Orchid
         class with-in plants.py belongs to
         Author: Braeden
@@ -122,6 +122,42 @@ class RefactoredTestCase(unittest.TestCase):
         super_classes = cp.fetch_super_classes(class_object)
 
         self.assertTrue(len(super_classes) == 1)
+
+    """
+    Tests for bad smell #3 : -
+    
+    """
+
+    def test_create_function_node(self):
+        """
+        Issue Three - Alternative classes with different interfaces - Test One
+        a
+        Author: Braeden
+        """
+        f = function_node.FunctionNode("Function One",
+                                       ["param one", "param two"], "+")
+
+        self.assertTrue(f.get_name() == "Function One")
+
+    def test_create_attribute_node(self):
+        """
+        Issue Three - Alternative classes with different interfaces - Test Two
+        a
+        Author: Braeden
+        """
+        a = attribute_node.AttributeNode("Attribute One", "+")
+
+        self.assertTrue(a.get_name() == "Attribute One")
+
+    def test_create_class_node(self):
+        """
+        Issue Three - Alternative classes with different interfaces - Test Three
+        a
+        Author: Braeden
+        """
+        c = class_node.ClassNode("Class One", None)
+
+        self.assertTrue(c.get_name() == "Class One")
 
 
 if __name__ == '__main__':
