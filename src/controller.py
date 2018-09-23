@@ -33,7 +33,7 @@ class Controller:
         user_args = args.split()
 
         if len(user_args) > 0:
-            self.files = [args]
+            self.files = user_args
             return True
 
         return False
@@ -65,7 +65,6 @@ class Controller:
             root.withdraw()
             copyfile('tmp/class.png', root.filename + '/class.png')
             return True
-
         try:
             copyfile('tmp/class.png', args + '/class.png')
             return True
