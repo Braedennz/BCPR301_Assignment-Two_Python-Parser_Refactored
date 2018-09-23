@@ -106,7 +106,8 @@ class RefactoredTestCase(unittest.TestCase):
         """
         ctrl = controller.Controller()
         ctrl.set_files_by_arguments(
-            [os.getcwd() + "\\tmp\\plants.py", os.getcwd() + "\\src\\controller.py"])
+            [os.getcwd() + "\\tmp\\plants.py",
+             os.getcwd() + "\\src\\controller.py"])
 
         parsed = ctrl.run_parser(False, False)
 
@@ -156,7 +157,8 @@ class RefactoredTestCase(unittest.TestCase):
 
     def test_create_class_node(self):
         """
-        Issue Three - Alternative classes with different interfaces - Test Three
+        Issue Three - Alternative classes with
+        different interfaces - Test Three
         a
         Author: Braeden
         """

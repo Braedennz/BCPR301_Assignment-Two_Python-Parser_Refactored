@@ -20,11 +20,110 @@ label = "{Plant|+ plant_height\l|- __init__(self,h)\l+ grow_plant(self)\l}"
 Sunflower [
 label = "{Sunflower||+ drop_seed(self)\l}"
 ]
+Orchid [
+label = "{Orchid||}"
+]
+Plant [
+label = "{Plant|+ plant_height\l|- __init__(self,h)\l+ grow_plant(self)\l}"
+]
+Sunflower [
+label = "{Sunflower||+ drop_seed(self)\l}"
+]
+Orchid [
+label = "{Orchid||}"
+]
+Plant [
+label = "{Plant|+ plant_height\l|- __init__(self,h)\l+ grow_plant(self)\l}"
+]
+Sunflower [
+label = "{Sunflower||+ drop_seed(self)\l}"
+]
+Orchid [
+label = "{Orchid||}"
+]
+Plant [
+label = "{Plant|+ plant_height\l|- __init__(self,h)\l+ grow_plant(self)\l}"
+]
+Sunflower [
+label = "{Sunflower||+ drop_seed(self)\l}"
+]
+Orchid [
+label = "{Orchid||}"
+]
+Plant [
+label = "{Plant|+ plant_height\l|- __init__(self,h)\l+ grow_plant(self)\l}"
+]
+Sunflower [
+label = "{Sunflower||+ drop_seed(self)\l}"
+]
+Orchid [
+label = "{Orchid||}"
+]
+Plant [
+label = "{Plant|+ plant_height\l|- __init__(self,h)\l+ grow_plant(self)\l}"
+]
+Sunflower [
+label = "{Sunflower||+ drop_seed(self)\l}"
+]
+Orchid [
+label = "{Orchid||}"
+]
+Plant [
+label = "{Plant|+ plant_height\l|- __init__(self,h)\l+ grow_plant(self)\l}"
+]
+Sunflower [
+label = "{Sunflower||+ drop_seed(self)\l}"
+]
+Orchid [
+label = "{Orchid||}"
+]
+Plant [
+label = "{Plant|+ plant_height\l|- __init__(self,h)\l+ grow_plant(self)\l}"
+]
+Sunflower [
+label = "{Sunflower||+ drop_seed(self)\l}"
+]
+Orchid [
+label = "{Orchid||}"
+]
+Plant [
+label = "{Plant|+ plant_height\l|- __init__(self,h)\l+ grow_plant(self)\l}"
+]
+Sunflower [
+label = "{Sunflower||+ drop_seed(self)\l}"
+]
+Orchid [
+label = "{Orchid||}"
+]
+Plant [
+label = "{Plant|+ plant_height\l|- __init__(self,h)\l+ grow_plant(self)\l}"
+]
+Sunflower [
+label = "{Sunflower||+ drop_seed(self)\l}"
+]
 }
 
                     edge [
                         arrowhead = "empty"
                     ]
                 Orchid -> Plant
+Sunflower -> Plant
+Orchid -> Plant
+Sunflower -> Plant
+Orchid -> Plant
+Sunflower -> Plant
+Orchid -> Plant
+Sunflower -> Plant
+Orchid -> Plant
+Sunflower -> Plant
+Orchid -> Plant
+Sunflower -> Plant
+Orchid -> Plant
+Sunflower -> Plant
+Orchid -> Plant
+Sunflower -> Plant
+Orchid -> Plant
+Sunflower -> Plant
+Orchid -> Plant
 Sunflower -> Plant
 }

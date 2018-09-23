@@ -16,12 +16,6 @@ def register_arguments():
         "--file",
         nargs="+",
         help="Multiple file input for parse")
-    # Created By Jake Reddock
-    parser.add_argument(
-        "-s",
-        "--statistics",
-        action='store_true',
-        help="Print Statistics for classes uploaded")
     # Created By Michael Huang
     parser.add_argument(
         "-o",
@@ -71,8 +65,6 @@ class Interpreter(Cmd):
         """
         if self.controller.ui_set_python_files(args):
             handle_message("Success", "files have been set")
-        else:
-            handle_message("Error", "no files were selected")
 
     def do_output_to_dot(self, args):
         """
@@ -108,8 +100,6 @@ class Interpreter(Cmd):
 
         if self.controller.copy_file_to_destination(args):
             handle_message("Success", "copied file to the destination")
-        else:
-            handle_message("Error", "copy to destination has failed")
 
     def do_output_to_png(self, args):
         """

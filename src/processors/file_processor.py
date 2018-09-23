@@ -42,7 +42,8 @@ class FileProcessor:
             __import__(module_name, locals(), globals())
             self.modules.append(sys.modules[module_name])
         except ImportError:
-            print("A file with this name could not be found, please try again.")
+            print("A file with this name could not be found, "
+                  "please try again.")
         except OSError:
             print("The provided python file contains invalid syntax, "
                   "please fix the provided code before running")

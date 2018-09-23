@@ -73,7 +73,10 @@ class MakeUML:
                         if not self.hide_methods:
                             for func in c.functions:
                                 write_row(
-                                    out, func.visibility + " " + func.name + "(" + func.get_parameters() + ")")
+                                    out,
+                                    func.visibility + " " +
+                                    func.name +
+                                    "(" + func.get_parameters() + ")")
 
                         # Functions End
 

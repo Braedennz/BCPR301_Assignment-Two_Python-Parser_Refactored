@@ -20,14 +20,10 @@ class Controller:
             self.files = files
             return True
 
-        return False
-
     def set_output_name_by_arguments(self, output):
         if output is not None:
             self.output = output
             return True
-
-        return False
 
     def cl_set_python_files(self, args):
         user_args = args.split()
@@ -72,13 +68,14 @@ class Controller:
             print('Failed to find a file: %s' % f)
             print('Please specify a valid file path.')
             return False
-        except BaseException:
+        except:
             print('Unexpected error has occurred.')
             return False
 
     @staticmethod
     def convert_dot_to_png():
-        os.chdir(os.getcwd() + '/src')
+        os.chdir(os.getcwd())
+
         return call(['dot', '-Tpng', 'tmp/class.dot', '-o', 'tmp/class.png'])
 
     def run_parser(self, hide_attributes, hide_methods):

@@ -62,7 +62,8 @@ class CodeProcessor:
 
                         for attribute in attributes:
                             self.process_attribute(
-                                attribute, class_node, self.get_visibility_of_string(attribute))
+                                attribute, class_node,
+                                self.get_visibility_of_string(attribute))
 
                     self.process_function(
                         something,

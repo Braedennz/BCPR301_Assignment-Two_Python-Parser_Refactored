@@ -1,6 +1,9 @@
 # Takes input form the command line and initiates the controller
 # passing command line input to the controller which then uses
 # the information to initiate the model which parses the require file/files
+import sys
+sys.path.append('../')
+
 from src import interpreter as pi
 
 
